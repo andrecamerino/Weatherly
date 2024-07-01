@@ -1,0 +1,385 @@
+* {
+    /* border: 1px dotted red; */
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+:root {
+    --border-radius: 50px;
+    --button-border-radius: 30px;
+    --transparent-1: 0.4;
+    --white: whitesmoke;
+    --light-blue: rgb(148, 210, 189);
+    --blue: rgb(10, 147, 150);
+    --transparent-blue: rgba(10, 147, 150, var(--transparent-1));
+    --dark-blue: rgb(0, 95, 115);
+    --true-dark-blue: rgba(0, 68, 78, 255);
+    --black: rgb(0, 18, 25);
+    --grey: rgba(0, 18, 25, 0.6);
+    --button-hover-color: rgba(0, 18, 25, 0.8);
+    --transparent-grey: rgba(0, 18, 25, 0.25);
+    --main-weather-card-width: 28vw;
+}
+ 
+body {
+    background: var(--light-blue);
+    padding: 2vw;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    transition: background 0s, border-color 0s;
+}
+
+::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+.loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background-color: var(--light-blue);
+    animation: fade-out 0.6s linear forwards 4s;
+}
+
+@keyframes fade-out {
+    0% {opacity: 1;}
+    100% {opacity: 0; visibility: hidden;}
+}
+
+#loading-title {
+    position: relative;
+    visibility: hidden;
+    font-size: 8vw;
+    animation: reveal-title 1.4s ease forwards 0.3s; /* Use forwards to retain final state */
+}
+
+@keyframes reveal-title {
+    0% {
+        transform: translateY(20vh);
+        visibility: visible;
+    }
+    100% {
+        transform: translateY(0vh);
+        visibility: visible;
+    }
+}
+
+#loading-cover {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 44vh;
+    background-color: var(--light-blue);
+    animation: cover-up 1.5s ease forwards 2.2s;
+}
+
+@keyframes cover-up {
+    100% {height: 56vh}
+}
+
+#loading-line {
+    position: absolute;
+    background-color: var(--black);
+    width: 32vw; /* Final width */
+    height: 0.4vh;
+    border-radius: 15px;
+    transform-origin: center; /* Set the origin to the center */
+    animation: line-open 1s ease, line-close 1s ease forwards 3.2s;
+}
+
+@keyframes line-open {
+    0% {
+        transform: scaleX(0); /* Start with zero width */
+    }
+    100% {
+        transform: scaleX(1); /* Scale to full width */
+    }
+}
+
+@keyframes line-close {
+    0% {
+        transform: scaleX(1); /* Start with zero width */
+    }
+    100% {
+        transform: scaleX(0); /* Scale to full width */
+    }
+}
+
+#main-body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 92vh;
+    gap: 4rem;
+
+    min-width: 1200px;
+    min-height: 870px;
+}
+
+#saved-places-list {
+    background-color: var(--transparent-grey);
+    height: auto;
+    border-radius: var(--border-radius);
+    min-width: 300px;
+    max-width: 400px;
+    padding: 1rem;
+    overflow-y: scroll;
+    outline: 10px solid var(--transparent-grey);
+    scroll-behavior: smooth;
+}
+
+#saved-places-list::-webkit-scrollbar {
+    width: 0; /* Ensures the scrollbar takes no width */
+    display: none; /* Hides the scrollbar */
+}
+
+.saved-place {
+    margin-bottom: 14px;
+    background-color: var(--grey);
+    height: 140px;
+    border-radius: 40px;
+    padding: 1.8em;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.saved-place:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.saved-place:active {
+    transition: transform 0.1s ease;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.saved-place-name {
+    margin: 0.2em 0;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.saved-place-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.saved-place-weather {
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.saved-temperature {
+    width: min-content;
+    font-size: 5em;
+    font-weight: 500;
+}
+
+#main-view {
+    height: 100%;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    justify-content: center;
+}
+
+.logo {
+    position: absolute;
+    margin: 2rem 0;
+    font-size: 2rem;
+    color: var(--grey);
+    top: 0;
+    left: 0;
+    z-index: -10;
+}
+
+.search-bar-section {
+    background: var(--transparent-grey);
+    min-height: 2vh;
+    margin: 0.8rem 0;
+    border-radius: var(--border-radius);
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#search-bar {
+    margin: auto 0;
+    height: auto;
+    padding: 0 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    height: 2em;
+    font-weight: 500;
+    background-color: rgb(0, 0, 0, 0);
+    border: 0px solid var(--white);
+    color: var(--white);
+    font-size: 1.4em;
+    caret-color: var(--grey);
+}
+
+#search-bar::placeholder {
+    color: var(--grey);
+    opacity: 1;
+}
+
+#search-bar:focus {
+    outline: none;
+}
+
+#search-button {
+    background-color: var(--grey);
+    justify-content: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius);
+    height: 2em;
+    width: 120px;
+    transition: background-color 0.2s;
+    font-size: 1.4em;
+}
+
+#search-button:hover {
+    background-color: var(--button-hover-color);
+    cursor: pointer;
+}
+
+#add-button {
+    position: absolute;
+    display: flex;
+    width: 160px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    background-color: var(--transparent-grey);
+    border-radius: var(--button-border-radius);
+    color: var(--white);
+    font-size: 2em;
+    transition: background-color 0.2s;
+    transform-origin: center; /* Scale from the center */
+}
+
+#clear-button {
+    position: absolute;
+    display: flex;
+    width: 180px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+    background-color: var(--transparent-grey);
+    border-radius: var(--button-border-radius);
+    color: var(--white);
+    font-size: 2em;
+    transition: background-color 0.2s;
+    transform-origin: center; /* Scale from the center */
+}
+
+#add-button:hover, #clear-button:hover {
+    background-color: var(--grey);
+    cursor: pointer;
+}
+
+#add-button:active, #clear-button:active {
+    background-color: var(--button-hover-color);
+    transition: background-color 0.05s;
+    cursor: pointer;
+}
+
+#main-weather-card {
+    display: grid;
+    grid-template-rows: auto auto auto auto 1fr;
+    min-height: 720px;
+    height: 70vh;
+    min-width: 480px;
+    width: var(--main-weather-card-width);
+    background: var(--transparent-grey);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    color: var(--white);
+    text-align: center;
+    /* gap: 1rem; Ensure there is a gap between the grid items */
+}
+
+.weather-card-title {
+    grid-area: 'name';
+    font-size: 5em;
+    font-weight: 400;
+    margin: 2rem 0;
+}
+
+#weather {
+    font-size: 2.6em;
+    margin-bottom: 1rem;
+}
+
+#temperature {
+    grid-area: 'temperature';
+    font-size: 10em;
+    font-weight: 100;
+    font-weight: 100;
+    letter-spacing: -0.6rem;
+    margin-left: -1vw;
+}
+
+.temperatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    height: max-content;
+}
+
+#temp-min, #temp-max {
+    font-weight: 100;
+    font-size: 2rem;
+}
+
+#temp-min {
+    text-align: right;
+}
+
+#temp-max {
+    text-align: left;
+}
+
+.weather-info-section {
+    margin-top: 3vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.weather-info-text {
+    font-size: 1.4rem;
+    height: max-content;
+    margin-top: auto;
+    font-weight: 300;
+}
+
+#feels-like, #wind-speed, #sunrise, #sunset {
+    font-size: 5em;
+    font-weight: 500;
+}
+
+.small-info-value{
+    font-size: 0.2em;
+    font-weight: 300;
+}

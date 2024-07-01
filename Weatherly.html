@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weatherly</title>
+    <!-- <meta name="theme-color" content="rgb(148, 210, 189)"> -->
+    <link rel="stylesheet" href="Weatherly.css">
+    <link rel="stylesheet" href="WeatherAnimations.css">
+    <script defer src="Weatherly.js"></script>
+</head>
+<body>
+
+    <div class="loading-screen">
+        <div id="loading-title">Weatherly</div>
+        <div id="loading-cover">
+            <div id="loading-line"></div>
+        </div>
+    </div>
+
+    <div id="rain">
+        <!-- rain drops are injected by js -->
+    </div>
+
+    <div class="clouds">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+
+    <div id="main-body">
+
+        <div id="saved-places-list">
+            <!-- saved locations are injected here by javascript program -->
+        </div>
+
+        <div id="main-view">
+            <div class="logo">Weatherly</div>
+            <div id="add-button">add</div>
+            <div id="clear-button">clear list</div>
+            <div class="search-bar-section">
+                <input type="text" id="search-bar" placeholder="enter a city/country">
+                <div id="search-button">search</div>
+            </div>
+            <div id="main-weather-card">
+                <div class="weather-card-title"></div>
+
+                <div id="weather">--</div>
+
+                <div id="temperature">&nbsp--</div>
+                <div class="temperatures">
+                    <div id="temp-min">Min: --</div>
+                    <div id="temp-max">Max: --</div>
+                </div>
+
+                <div class="weather-info-section">
+                    <div class="weather-info-text">Feels like</div>
+                    <div class="weather-info-text">Wind Speed</div>
+                    <div id="feels-like">--</div>
+                    <div id="wind-speed">--</div>
+                    <div class="weather-info-text">Sunrise</div>
+                    <div class="weather-info-text">Sunset</div>
+                    <div id="sunrise">--</div>
+                    <div id="sunset">--</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="sun"></div>
+
+</body>
+</html>
